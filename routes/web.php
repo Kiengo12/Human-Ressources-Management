@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 use App\Http\Controllers\searchController;
+use App\Http\Controllers\UserManageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +24,6 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    
     $prestataires = DB::table('users')->where('role','prestataire')->get();
     $postulants = DB::table('users')->where('role','postulant')->get();
     $entreprises = DB::table('users')->where('role','entreprise')->get();
@@ -30,5 +32,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('search', [searchController::class, 'search']);
+Route::get('search_id', [searchController::class, 'search_id']);
+
+
+
+
+
 
 require __DIR__.'/auth.php';

@@ -1,6 +1,6 @@
 @extends('layouts.registerLayout')
 @section('register')
-die();
+
 <x-guest-layout>
     <x-auth-card>
         
@@ -8,13 +8,13 @@ die();
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="/postulant">
+        <form method="POST" action="/postulant" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="label" for="nom">Nom</label>
-                        <input type="text" class="form-control" name="nom" id="nom" placeholder="nom de l'entreprise" required>
+                        <input type="text" class="form-control" name="nom" id="nom" placeholder="nom" required>
                     </div>
                 </div>
                 <div class="col-md-6"> 

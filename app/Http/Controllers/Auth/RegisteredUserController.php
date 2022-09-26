@@ -57,7 +57,8 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        $cv = Storage::disk('local')->put('local', $request->cv);
+        
         $user = User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -68,6 +69,7 @@ class RegisteredUserController extends Controller
             'domaine_expertise' => $request->domaine_expertise,
             'niveau_formation' => $request->niveau_formation,
             'pays' => $request->pays,
+            'cv' => $cv,
             'ville' => $request->ville,
             'quartier' => $request->quartier,
             'resume' => $request->resume,
@@ -77,12 +79,15 @@ class RegisteredUserController extends Controller
             'description_entreprise' => 'null',
             'password' => Hash::make($request->password),
         ]);
+        CV::create([
+            'cv' => $request->cv
+        ]);
 
         event(new Registered($user));
 
         Auth::login($user);
         
-        return redirect("/dashboard");
+        return redirect("/dashboard")->with('success', "Votre compte en tant que candidat postulant a ete creer avec succes");;
     }
 
 
@@ -103,7 +108,7 @@ class RegisteredUserController extends Controller
             'pays' =>$request->pays,
             'annee_experience'=> $request->annee_experience,
             'references' => $request->references,
-
+            'effectif_equipe' => $request->effectif_equipe,
             'ville' => $request->ville,
             'quartier' => $request->quartier,
             'resume' => $request->resume,
@@ -117,7 +122,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
        
-        return redirect("/dashboard");
+        return redirect("/dashboard")->with('success', "Votre compte prestataire a ete creer avec succes");
     }
 
 
@@ -152,7 +157,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);   
-        return redirect("/dashboard");
+        return redirect("/dashboard")->with('success', "Votre compte entreprise a ete creer avec succes");;
     }
 
     public function store3(Request $request)
@@ -184,6 +189,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);   
-        return redirect("/dashboard");
+        return redirect("/dashboard")->with('success', "Votre compte entrepreneur a ete creer avec succes");;
     }
 }

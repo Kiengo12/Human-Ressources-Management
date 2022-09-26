@@ -15,7 +15,7 @@ class searchController extends Controller
         $entrepreneurs = DB::table('users')->where('role','entrepreneur')->get();
         $prestataires = DB::table('users')->where('role','prestataire')->get();
         $postulants = DB::table('users')->where('role','postulant')->get();
-        return view('layouts.dashboardLayout', compact('entreprises','prestataires','postulants','entrepreneurs'));
+        return view('adminMenu.entrepriseMenu', compact('entreprises','prestataires','postulants','entrepreneurs'));
     }
     public function prestataire (){
         $prestataires = DB::table('users')->where('role','prestataire')->get();
@@ -37,7 +37,7 @@ class searchController extends Controller
         $entrepreneurs = DB::table('users')->where('role','entrepreneur')->get();
         $prestataires = DB::table('users')->where('role','prestataire')->get();
         $entreprises = DB::table('users')->where('role','entreprise')->get();
-        return view('adminMenu.postulantMenu',compact('entreprises','prestataires','postulants','entrepreneurs'));
+        return view('adminMenu.entrepreneurMenu',compact('entreprises','prestataires','postulants','entrepreneurs'));
     }
     public function profile (){
         $postulants = DB::table('users')->where('role','postulant')->get();
@@ -56,6 +56,26 @@ class searchController extends Controller
         $recherche = User::where('domaine_expertise', 'like', "%$search%")->get();
         
         return view('recherche.search', compact('recherche','postulants','entrepreneurs','prestataires','entreprises','search'));
+    }
+    public function search_id(){
+        $postulants = DB::table('users')->where('role','postulant')->get();
+        $entrepreneurs = DB::table('users')->where('role','entrepreneur')->get();
+        $prestataires = DB::table('users')->where('role','prestataire')->get();
+        $entreprises = DB::table('users')->where('role','entreprise')->get();
+        $search = request()->input('search');
+        
+        $recherche = User::where('id', 'like', "%$search%")->get();
+        
+        return view('recherche.search', compact('recherche','postulants','entrepreneurs','prestataires','entreprises','search'));
+    }
+    public function show($id)
+    {
+        $entreprises = User::all()->where('role','entreprise');
+        $entrepreneurs = DB::table('users')->where('role','entrepreneur')->get();
+        $prestataires = DB::table('users')->where('role','prestataire')->get();
+        $postulants = DB::table('users')->where('role','postulant')->get();
+        $utilisateurs = User::all()->where('id',$id);
+        return view('recherche.searchShow',compact('entreprises','entrepreneurs','prestataires','postulants','utilisateurs'));
     }
 
 }

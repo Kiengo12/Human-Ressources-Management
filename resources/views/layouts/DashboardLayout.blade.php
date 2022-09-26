@@ -17,12 +17,17 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://maison2retour.com/wp-content/uploads/2021/09/cropped-logo01-e1632341791605.png">
     <!-- Custom CSS -->
     <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href=../plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="../plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-   
+    <script src="https://kit.fontawesome.com/b7875dc044.js" crossorigin="anonymous"></script>
+    
+    
+    
 </head>
 
 <body>
@@ -85,10 +90,11 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
+                        @if(Auth::user()->role=='admin')
                         <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3" method="get" action="/search">
-                                <input type="text" placeholder="Domaine d'expertise" class="form-control mt-0 me-2" name="search" >
-								<button type="submit" class="rond btn mb-2 mb-md-0 btn-light btn-block circle"><span><i class="fa fa-search"></i></span> 
+                            <form role="search" class="app-search d-none d-md-block me-3" method="get" action="/search_id">
+                                <input type="text" placeholder="Identifiant" class="form-control mt-0 me-2" name="search" required>
+								<button type="submit" class="btn btn-info"><span><i class="fa fa-search"></i></span> 
 									<div class="rond icon d-flex align-items-center justify-content-center">
 										<i class="ion-ios-paper-plane"></i>
 									</div>
@@ -98,6 +104,20 @@
                             
        
                         </li>
+                        <li class=" in">
+                            <form role="search" class="app-search d-none d-md-block me-3" method="get" action="/search">
+                                <input type="text" placeholder="Domaine d'expertise" class="form-control mt-0 me-2" name="search" required>
+								<button type="submit" class="btn btn-info"><span><i class="fa fa-search"></i></span> 
+									<div class="rond icon d-flex align-items-center justify-content-center">
+										<i class="ion-ios-paper-plane"></i>
+									</div>
+								</button>
+							
+                            </form>
+                            
+       
+                        </li>
+                        @endif
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -133,6 +153,9 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
+                       
+                        @if(Auth::user()->role== 'entreprise')
+                        <!--
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profile"
                                 aria-expanded="false">
@@ -140,7 +163,50 @@
                                 <span class="hide-menu">Profile</span>
                             </a>
                         </li>
+                        -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/entreprise-listeMissions"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Missions</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/mission-entreprise">
+                                <button class="btn btn-info sidebar-link sidebar-link m-3"><i class="fa fa-solid fa-plus"></i>Creer une mission</button>
+                            </a>    
+                        </li>
+                        @endif
+                        @if(Auth::user()->role== 'entrepreneur')
+                       <!-- <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
+                        -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/entrepreneur-listeMissions"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Missions</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/mission-entrepreneur">
+                                <button class="btn btn-info sidebar-link sidebar-link m-3"><i class="fa fa-solid fa-plus"></i>Creer une mission</button>
+                            </a>    
+                        </li>
+                        @endif
                         @if(Auth::user()->role == 'admin')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Profile</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/entreprises"
                                 aria-expanded="false">
@@ -171,14 +237,42 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="basic-table.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/missions-entreprises"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Missions</span>
+                                <span class="hide-menu">Missions Entreprises</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/missions-entrepreneurs"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Missions Entrepreneurs</span>
                             </a>
                         </li>
                         @endif
-    
+                        <!--
+                        @if(Auth::user()->role == 'postulant')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profile"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="hide-menu">Modifier mes informations</span>
+                            </a>
+                        </li>
+                        @endif
+                        
+                        @if(Auth::user()->role == 'prestataire')
+                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="hide-menu">Modifier mes informations</span>
+                            </a>
+                        </li>
+                        -->
+                        @endif
                     </ul>
 
                 </nav>
@@ -286,6 +380,8 @@
                 @yield('contenuDashboard')
                 @yield('entrepriseMenu')
                 @yield('search')
+                @yield('mission')
+                @yield('show')
 
 
 
@@ -325,6 +421,7 @@
     <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!--Wave Effects -->
     <script src="js/waves.js"></script>
+    <script src="../js/main.js"></script>
     <!--Menu sidebar -->
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->

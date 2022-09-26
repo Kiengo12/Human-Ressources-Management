@@ -13,7 +13,7 @@
 	
 	<link rel="stylesheet" href="../css/style.css">
 
-	</head>
+</head>
 	@include('layouts.menu')
 	<body>
 	<section class="ftco-section">

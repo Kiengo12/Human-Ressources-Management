@@ -30,7 +30,7 @@
                                         <h5 class="font-medium">{{$recherches->nom}}</h5>
                                         <span class="mb-3 d-block">{{$recherches->resume}}</span>
                                         <div class="comment-footer d-md-flex align-items-center">
-                                             <span class="badge bg-info rounded md-4"><i class="fa fa-eye"></i></span>
+                                        <a href="{{route('recherche.show',$recherches->id)}}" class="btn btn-info ml-2"><i class="fa fa-solid fa-eye "></i></a>
                                              
                                              
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">{{$recherches->date_naissance}}</div>

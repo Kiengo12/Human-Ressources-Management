@@ -35,10 +35,16 @@
                         <input type="phone" class="form-control" name="phone" id="phone" placeholder="phone" required>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label class="label" for="domaine_expertise">Domaine d'intervention</label>
                         <input type="text" class="form-control" name="domaine_expertise" id="domaine_expertisw" placeholder="domaine intervention" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="label" for="domaine_expertise">Effectif de l'equipe d'intervention</label>
+                        <input type="number" class="form-control" name="effectif_equipe" id="effectif_equipe" placeholder="effectif de votre equipe" required>
                     </div>
                 </div>
                 <div class="col-md-12">
